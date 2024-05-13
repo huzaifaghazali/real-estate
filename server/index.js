@@ -1,13 +1,17 @@
 import express from 'express';
+import cookieParser from 'cookie-parser';
+import dotenv from 'dotenv';
 import { mongoConnect } from './db/mongo.js';
 import userRouter from './routes/userRoute.js';
 import authRouter from './routes/authRoute.js';
+dotenv.config();
 
 const PORT = process.env.PORT || 3000;
 
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
