@@ -4,6 +4,8 @@ import dotenv from 'dotenv';
 import { mongoConnect } from './db/mongo.js';
 import userRouter from './routes/userRoute.js';
 import authRouter from './routes/authRoute.js';
+import listingRouter from './routes/listingRoute.js';
+
 dotenv.config();
 
 const PORT = process.env.PORT || 3000;
@@ -15,6 +17,7 @@ app.use(cookieParser());
 
 app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/listing', listingRouter);
 
 async function startServer() {
   await mongoConnect();
