@@ -13,6 +13,7 @@ import {
   FaShare,
 } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
+import Contact from '../components/Contact';
 
 function Listing() {
   SwiperCore.use([Navigation]);
@@ -143,7 +144,7 @@ function Listing() {
                 Contact landlord
               </button>
             )}
-            {contact && <p>contact</p>}
+            {contact && <Contact listing={listing} />}
           </div>
         </div>
       )}
