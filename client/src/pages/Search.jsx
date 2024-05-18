@@ -70,6 +70,20 @@ function Search() {
     navigate(`/search?${searchQuery}`);
   };
 
+  const onShowMoreClick = async () => {
+    const numberOfListings = listings.length;
+    const startIndex = numberOfListings;
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set('startIndex', startIndex);
+    const searchQuery = urlParams.toString();
+    const res = await fetch(`/api/listing/get?${searchQuery}`);
+    const data = await res.json();
+    if (data.length < 9) {
+      setShowMore(false);
+    }
+    setListings((previousListings) => [...previousListings, ...data]);
+  };
+
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const searchTermFromUrl = urlParams.get('searchTerm');
@@ -242,6 +256,15 @@ function Search() {
             listings.map((listing) => (
               <ListingItem key={listing._id} listing={listing} />
             ))}
+
+          {showMore && (
+            <button
+              onClick={onShowMoreClick}
+              className='text-green-700 hover:underline p-7 text-center w-full'
+            >
+              Show more
+            </button>
+          )}
         </div>
       </div>
     </div>
