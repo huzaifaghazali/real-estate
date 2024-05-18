@@ -14,7 +14,7 @@ function Header() {
     if (searchTermFromUrl) {
       setSearchTerm(searchTermFromUrl);
     }
-  }, []);
+  }, [window.location.search]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

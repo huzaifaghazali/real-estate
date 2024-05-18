@@ -13,9 +13,109 @@ function Search() {
     order: 'desc',
   });
 
-  const handleChange = (e) => {};
+  const [loading, setLoading] = useState(false);
+  const [listings, setListings] = useState([]);
+  const [showMore, setShowMore] = useState(false);
 
-  const handleSubmit = async () => {};
+  const handleChange = (e) => {
+    const { id, value, checked } = e.target;
+
+    // Can either be sale or rent
+    if (id === 'all' || id === 'sale' || id === 'rent') {
+      setSidebardata((prevFormData) => ({
+        ...prevFormData,
+        type: id,
+      }));
+    }
+
+    if (id === 'searchTerm') {
+      setSidebardata((prevFormData) => ({
+        ...prevFormData,
+        searchTerm: value,
+      }));
+    }
+
+    if (id === 'parking' || id === 'furnished' || id === 'offer') {
+      setSidebardata((prevFormData) => ({
+        ...prevFormData,
+        [id]: checked || checked === 'true' ? true : false,
+      }));
+    }
+
+    if (id === 'sort_order') {
+      const sort = value.split('_')[0] || 'created_at';
+
+      const order = value.split('_')[1] || 'desc';
+
+      setSidebardata((prevFormData) => ({
+        ...prevFormData,
+        sort,
+        order,
+      }));
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const urlParams = new URLSearchParams();
+    urlParams.set('searchTerm', sidebardata.searchTerm);
+    urlParams.set('type', sidebardata.type);
+    urlParams.set('parking', sidebardata.parking);
+    urlParams.set('furnished', sidebardata.furnished);
+    urlParams.set('offer', sidebardata.offer);
+    urlParams.set('sort', sidebardata.sort);
+    urlParams.set('order', sidebardata.order);
+    const searchQuery = urlParams.toString();
+    navigate(`/search?${searchQuery}`);
+  };
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const searchTermFromUrl = urlParams.get('searchTerm');
+    const typeFromUrl = urlParams.get('type');
+    const parkingFromUrl = urlParams.get('parking');
+    const furnishedFromUrl = urlParams.get('furnished');
+    const offerFromUrl = urlParams.get('offer');
+    const sortFromUrl = urlParams.get('sort');
+    const orderFromUrl = urlParams.get('order');
+
+    if (
+      searchTermFromUrl ||
+      typeFromUrl ||
+      parkingFromUrl ||
+      furnishedFromUrl ||
+      offerFromUrl ||
+      sortFromUrl ||
+      orderFromUrl
+    ) {
+      setSidebardata({
+        searchTerm: searchTermFromUrl || '',
+        type: typeFromUrl || 'all',
+        parking: parkingFromUrl === 'true' ? true : false,
+        furnished: furnishedFromUrl === 'true' ? true : false,
+        offer: offerFromUrl === 'true' ? true : false,
+        sort: sortFromUrl || 'created_at',
+        order: orderFromUrl || 'desc',
+      });
+    }
+
+    const fetchListings = async () => {
+      setLoading(true);
+      setShowMore(false);
+      const searchQuery = urlParams.toString();
+      const res = await fetch(`/api/listing/get?${searchQuery}`);
+      const data = await res.json();
+      if (data.length > 8) {
+        setShowMore(true);
+      } else {
+        setShowMore(false);
+      }
+      setListings(data);
+      setLoading(false);
+    };
+
+    fetchListings();
+  }, [window.location.search]);
 
   return (
     <div className='flex flex-col md:flex-row'>
