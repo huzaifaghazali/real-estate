@@ -57,8 +57,8 @@ function Listing() {
         <p className='text-center my-7 text-2xl'>Something went wrong!</p>
       )}
       {listing && !loading && !error && (
-        <div>
-          <Swiper navigation>
+        <>
+          <Swiper navigation className='mt-5 max-w-4xl'>
             {listing.imageUrls.map((url) => (
               <SwiperSlide key={url}>
                 <div
@@ -71,6 +71,7 @@ function Listing() {
               </SwiperSlide>
             ))}
           </Swiper>
+
           <div className='fixed top-[13%] right-[3%] z-10 border rounded-full w-12 h-12 flex justify-center items-center bg-slate-100 cursor-pointer'>
             <FaShare
               className='text-slate-500'
@@ -146,7 +147,7 @@ function Listing() {
             )}
             {contact && <Contact listing={listing} />}
           </div>
-        </div>
+        </>
       )}
     </main>
   );
