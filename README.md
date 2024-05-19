@@ -19,6 +19,33 @@ Huzaifa Estate is a full-stack real estate application where users can create ac
 - Responsive and modern UI with React and Tailwind CSS
 - State management with Redux Toolkit
 
+## Pictures
+1.
+
+   ![rs1](https://github.com/huzaifaghazali/real-estate/assets/63412385/c42daf63-db9b-422d-98ad-33311412ded1)
+
+2.
+
+   ![rs2](https://github.com/huzaifaghazali/real-estate/assets/63412385/9484aee8-7614-4950-9820-bb6e53c95c2e)
+
+3.
+
+   ![rs3](https://github.com/huzaifaghazali/real-estate/assets/63412385/b2a5e578-588f-472a-a001-3b6cafe04c10)
+
+4.
+
+   ![rs4](https://github.com/huzaifaghazali/real-estate/assets/63412385/fda9aa72-8eea-4a7a-b225-9da4682f6819)
+
+5.
+
+   ![rs5](https://github.com/huzaifaghazali/real-estate/assets/63412385/3419c60a-28ba-4db2-ae3d-34ffaa583ede)
+
+
+6.
+
+   ![rs6](https://github.com/huzaifaghazali/real-estate/assets/63412385/11f5ea72-121e-45e0-80aa-1e5892a9983b)
+
+   
 ## Tech Stack
 
 ### Frontend
